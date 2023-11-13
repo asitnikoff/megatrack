@@ -12,6 +12,7 @@ import org.hibernate.annotations.TimeZoneStorageType;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.OffsetDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -47,6 +48,9 @@ public class User {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Poker.class)
     @JoinColumn(name = "poker_id", referencedColumnName = "poker_id")
     private Poker poker;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, targetEntity = Role.class, mappedBy = "roles")
+    private List<Role> roles;
 
     @TimeZoneStorage(TimeZoneStorageType.NATIVE)
     @Column(name = "created_at", nullable = false)
